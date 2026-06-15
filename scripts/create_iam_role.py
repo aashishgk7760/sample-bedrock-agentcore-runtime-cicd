@@ -105,6 +105,7 @@ def create_or_update_role(agent_name: str, region: str) -> str:
                     "bedrock:CreateGuardrailVersion",         # Create guardrail versions
                     "bedrock:GetGuardrail",                   # Get guardrail details
                     "bedrock:ListGuardrails",                 # List available guardrails
+                    "bedrock:ApplyGuardrail",                 # Apply guardrail during inference
                     "bedrock-agentcore:ListAgentRuntimes",         # List agent runtimes
                     "bedrock-agentcore:ListAgentRuntimeVersions",  # List runtime versions
                     "bedrock-agentcore:DeleteAgentRuntimeVersion"   # Delete runtime versions
@@ -117,7 +118,9 @@ def create_or_update_role(agent_name: str, region: str) -> str:
                     # Claude inference profiles (US region specific)
                     "arn:aws:bedrock:*:*:inference-profile/us.anthropic.claude-sonnet-4-*",
                     # General Claude inference profiles
-                    "arn:aws:bedrock:*:*:inference-profile/anthropic.claude-*"
+                    "arn:aws:bedrock:*:*:inference-profile/anthropic.claude-*",
+                    # Guardrail resources
+                    "arn:aws:bedrock:*:*:guardrail/*"
                 ]
             },
             {

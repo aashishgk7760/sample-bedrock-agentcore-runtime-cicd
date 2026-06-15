@@ -60,7 +60,7 @@ def create_oidc_provider(iam_client):
         # Check if GitHub OIDC provider already exists
         providers = iam_client.list_open_id_connect_providers()
         for provider in providers["OpenIDConnectProviderList"]:
-            if github_url in provider["Arn"]:
+            if "token.actions.githubusercontent.com" in provider["Arn"]:
                 logger.info(f"GitHub OIDC provider already exists: {provider['Arn']}")
                 return provider["Arn"]
         
@@ -134,6 +134,11 @@ def create_github_role(iam_client, provider_arn, github_repo):
                     "bedrock:InvokeModelWithResponseStream", # Stream model responses
                     "bedrock:GetFoundationModel",       # Get model information
                     "bedrock:ListFoundationModels",     # List available models
+                    "bedrock:CreateGuardrail",          # Create guardrails
+                    "bedrock:UpdateGuardrail",          # Update guardrails
+                    "bedrock:GetGuardrail",             # Get guardrail details
+                    "bedrock:ListGuardrails",           # List guardrails
+                    "bedrock:DeleteGuardrail",          # Delete guardrails
                     "bedrock-agentcore:*",              # AgentCore runtime operations
                     "bedrock-agentcore-control:*",      # AgentCore control plane operations
                     
